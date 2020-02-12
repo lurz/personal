@@ -1,177 +1,154 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
+import React from 'react'
+import ReactDOM from 'react-dom'
+// import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
+import { Parallax, Background } from 'react-parallax';
+import './style/main.css'
+import './style/base.css'
+import './style/vendor.css'
+// import Game from './game'
+// import Weather from './weather'
 
-
-function Square(props) {
-    return (
-        <button 
-            className={"square " + props.highlight}
-            onClick={props.onClick}>
-            {props.value}
-        </button>
+function Header(props) {
+    return(
+        <header className={"s-header" + (props.addclass ? ' sticky offset scrolling' : '')}>
+            <div className="header-content">
+                <nav className="header-nav-wrap">
+                    <ul className="header-nav">
+                        <li><a href="#intro" className='smoothscroll' title="Intro">Home</a></li>
+                        <li><a href="#about" className='smoothscroll' title="About">About</a></li>
+                        <li><a href="#projects" className='smoothscroll' title="Projects">Projects</a></li>
+                        <li><a href="#timeline" className='smoothscroll' title="Works">Timeline</a></li>
+                        <li><a href="mailto:#0" className='smoothscroll' title="Contact me">Contact me</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
     );
-  }
-  
-  class Board extends React.Component {
-    renderSquare(i) {
-      return (<Square 
-        value={this.props.squares[i]}
-        onClick={() => this.props.onClick(i)}
-        highlight={(this.props.highlight && this.props.highlight.includes(i))?'selected':''} />);
-    }
-  
-    render() {
-        const board = [];
-        for (let i = 0; i < 3; i++){
-            const children = [];
-            for (let j = 0; j < 3; j++){
-                children.push(this.renderSquare(i*3+j));
-            }
-            board.push(<div className="board-row">{children}</div>);
-        }
-      return (
-          <div>
-              {board}
-          </div>
-      );
-    }
-  }
-  
-  class Game extends React.Component {
+}
+
+const Intro = React.forwardRef((props, ref) =>  (
+    <Parallax bgImage={require('./images/intro.jpg')} bgWidth='3000' bgHeight='2000'>
+        <section id="intro" ref={ref} className="s-hero target-section">
+        <div className="row hero-content">
+            <div className="column large-full">
+                <h1>
+                Hi, I'm Renzhong Lu, <br />
+                a computer science Student <br />
+                at U of M - Ann Arbor
+                </h1>
+
+                <ul className="hero-social">
+                    <li>
+                        <a href="#0" title="">Twitter</a>
+                    </li>
+                    <li>
+                        <a href="#0" title="">Behance</a>
+                    </li>
+                    <li>
+                        <a href="#0" title="">Dribbble</a>
+                    </li>
+                </ul>
+
+            </div> 
+
+        </div>
+
+        <div className="hero-scroll">
+            <a href="#about" className="scroll-link smoothscroll">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 24l-8-9h6v-15h4v15h6z"/></svg>
+            </a>
+        </div>
+
+    </section>
+    </Parallax>
+));
+
+function About(props) {
+    return(
+        <section id="about" className="s-about target-section">
+
+        <div className="s-about__section s-about__section--profile">
+
+            <div className="right-vert-line"></div>
+
+            <div className="row">
+                <div className="column large-6 medium-8 tab-full">
+
+                    <div className="section-intro" data-num="01" data-aos="fade-up">
+                        <h3 className="subhead">About Me</h3>
+                        <h1 className="display-1">I'm the kind of person who isn't afraid of challenges.</h1>
+                    </div>
+
+                    {/* <div className="profile-pic" data-aos="fade-up">
+                        <img src="images/profile-pic.jpg" 
+                             srcSet="images/profile-pic.jpg 1x, images/profile-pic@2x.jpg 2x" alt="" />
+                    </div> */}
+
+                    <h3 data-aos="fade-up">Profile</h3>
+
+                    <p data-aos="fade-up">
+                    In consectetuer turpis ut velit. Praesent metus tellus, elementum eu, semper a, adipiscing nec, purus. 
+                    Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In ac dui quis 
+                    mi consectetuer lacinia. Fusce neque. Curabitur nisi. Suspendisse nisl elit, rhoncus eget, elementum ac, 
+                    condimentum eget, diam. Phasellus magna. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, 
+                    ipsum. Maecenas egestas arcu quis ligula mattis placerat. Suspendisse pulvinar, augue ac venenatis condimentum, 
+                    sem libero volutpat nibh, nec pellentesque velit pede quis nunc.
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+        </section>
+    );
+}
+
+
+
+class Index extends React.Component {
     constructor(props) {
         super(props);
+        this.introRef = React.createRef();
         this.state = {
-            history: [{squares: Array(9).fill(null), lastMove: null}],
-            xIsNext: true,
-            stepNumber: 0,
-            selectedButton: null,
-            startToEnd: true,
+            headerClass: false,
         }
     }
 
-    handleClick(i) {
-        const history = this.state.history.slice(0, this.state.stepNumber + 1);
-        const current = history[history.length-1];
-        const squares = [...current.squares];
-        if(calculateWinner(squares) || squares[i]){
-            return;
-        }
-        squares[i] = this.state.xIsNext ? 'X':'O';
-        this.setState({
-            history: [...history, {squares: squares, lastMove: i}], 
-            stepNumber: history.length,
-            xIsNext: !this.state.xIsNext,
-            selectedButton: null,
-        });
-    }
-
-    handleToggle() {
-        this.setState({
-            startToEnd: !this.state.startToEnd,
-        });
-    }
-
-    jumpTo(move) {
-        const history = this.state.history;
-        this.setState({
-            xIsNext: (move % 2) === 0,
-            stepNumber: move,
-            history: history,
-            selectedButton: move,
-        });
-    }
-
-    render() {
-        const history = this.state.history;
-        const current = history[this.state.stepNumber];
-        const winner = calculateWinner(current.squares);
-        const highlight = winner? winner.three : null;
-        let status;
-        if(winner){
-            status = 'Winner: ' + winner.player;
-        }else if(allUsed(current.squares)){
-            status = 'Draw';
-        }else{
-            status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
-        }
-
-        let moves = [];
-        if(this.state.startToEnd){
-            moves = history.map((step, move) =>{
-                const desc = move ? 'Go to move #' + move + ' at loc (' + Math.floor(step.lastMove/3) + ',' + step.lastMove%3 + ')': 'Go to game start';
-                return(
-                    <li key={move}>
-                        <button className={(move === this.state.selectedButton)? 'selected' : ''} onClick={() => this.jumpTo(move)}>{desc}</button>
-                    </li>
-                );
+    handleScroll(height){
+        let currentLoc = window.scrollY;
+        const trigger = height - 170;
+        console.log(trigger);
+        console.log(currentLoc);
+        
+         if (currentLoc > trigger + 150) {
+            this.setState({
+                headerClass: true,
             });
-        }else{
-            for(let i = history.length-1; i >= 0; i--){
-                const desc = (i === 0) ? 'Go to game start':'Go to move #' + i + ' at loc (' + Math.floor(history[i].lastMove/3) + ',' + history[i].lastMove%3 + ')';
-                moves.push(
-                    <li key={i}>
-                        <button className={(i === this.state.selectedButton)? 'selected' : ''} onClick={() => this.jumpTo(i)}>{desc}</button>
-                    </li>
-                );
-            }
-        }
-       
-
-      return (
-        <div className="game">
-          <div className="game-board">
-            <Board 
-                squares={current.squares} 
-                onClick={(i) => this.handleClick(i)}
-                highlight={highlight}
-            />
-          </div>
-          <div className="game-info">
-            <button onClick={() => this.handleToggle()}>Toggle</button>
-            <div>{status}</div>
-            <ol>{moves}</ol>
-          </div>
-        </div>
-      );
+         } else {
+             this.setState({
+                 headerClass: false,
+             });
+         }
     }
-  }
 
-  function calculateWinner(squares) {
-    const lines = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-      [0, 4, 8],
-      [2, 4, 6],
-    ];
-    for (let i = 0; i < lines.length; i++) {
-      const [a, b, c] = lines[i];
-      if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-        return {player: squares[a], three:lines[i]};
-      }
+    componentDidMount() {
+        const height = this.introRef.current.clientHeight;
+        console.log("mount " + height)
+        window.addEventListener('scroll', () => this.handleScroll(height));
     }
-    return null;
-  }
 
-  function allUsed(squares) {
-      let flag = true;
-      for(let i = 0; i < squares.length; i++){
-          if(!squares[i]){
-              flag = false;
-              break;
-          }
-      }
-      return flag;
-  }
-  
-  // ========================================
-  
-  ReactDOM.render(
-    <Game />,
+    render (){
+        return(
+            <div>
+                <Header addclass={this.state.headerClass} />
+                <Intro ref={this.introRef} />
+                <About />
+            </div>
+        );
+    }
+}
+
+ReactDOM.render(
+    <Index />,
     document.getElementById('root')
-  );
-  
+);
