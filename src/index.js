@@ -41,7 +41,7 @@ const Intro = React.forwardRef((props, ref) =>  (
         <div className="row hero-content">
             <div className="column large-full">
                 <h1>
-                Hi, I'm Renzhong Lu <br />
+                Hi, I'm Renzhong Lu, <br />
                 a computer science Student <br />
                 at U of M - Ann Arbor
                 </h1>
@@ -93,10 +93,17 @@ function About(props) {
                              srcSet="images/profile-pic.jpg 1x, images/profile-pic@2x.jpg 2x" alt="" />
                     </div> */}
 
-                    <h3 >Profile</h3>
+                    <h3 className='intro-para'>Profile</h3>
 
-                    <p >
-                    I'm Renzhong Lu.
+                    <p className='intro-para'>
+                    <br />
+                    I'm Renzhong Lu, a Master's student at the University of Michigan, major in computer science engineering. 
+                    I love programming, on everything! I can do front-end, Android, full-stack, ML, and even Arduino and ROS. 
+                    My favorite is, of course, full-stack development. Algorithm and math are behind the process of app development, 
+                    which boost the efficiency of your app. So never stop practicing on Leetcode ;)<br /><br />
+
+                    I love photography, Kpop, and jogging. Want to have a debate on which Kpop group is the best? Shoot me an email.
+
                     </p>
 
                 </div>

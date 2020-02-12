@@ -2494,6 +2494,14 @@ html.no-csstransitions .hero-content {
   left: calc(50% + 80px);
 }
 
+.s-about .intro-para{
+  font-family: "Gothic A1", sans-serif;
+}
+
+.s-about .intro-para p{
+  line-height: 5rem;
+}
+
 /* ------------------------------------------------------------------- 
  * ## career position
  * ------------------------------------------------------------------- */
