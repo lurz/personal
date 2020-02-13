@@ -2007,19 +2007,13 @@ input::-moz-focus-inner {
  *
  * ------------------------------------------------------------------- */
 .parallax-intro {
-  object-fit: cover;
-  background-size: cover;
   position: absolute;
   width: 100%;
   height: 100vh;
-  min-height: 82rem;
-  overflow: hidden;
-  background-color: transparent;
 }
 
 .parallax-intro img {
   object-fit: cover;
-  background-position: center;
   background-size: cover;
   height: 100%;
   width: 100%;
@@ -2499,7 +2493,7 @@ html.no-csstransitions .hero-content {
 }
 
 .s-about .intro-para p{
-  line-height: 5rem;
+  line-height: 1.6;
 }
 
 /* ------------------------------------------------------------------- 

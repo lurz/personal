@@ -14,13 +14,18 @@ class Header extends React.Component {
     render(){
         return(
             <header className={"s-header" + (this.props.addclass ? ' sticky offset scrolling' : '')}>
+                <div class="header-logo">
+                    <a href="../public/index.html">
+                        <img src={require("./images/logo.png")} alt="Homepage" />
+                    </a>
+                </div>
                 <div className="header-content">
                     <nav className="header-nav-wrap">
                         <ul className="header-nav">
                             <li><Link to="intro" title="Intro" smooth={true} onClick={this.props.onHide}>Home</Link></li>
                             <li><Link to="about" title="About" smooth={true} onClick={this.props.onHide}>About</Link></li>
-                            <li><Link to="projects" title="Projects" smooth={true} onClick={this.props.onHide}>Projects</Link></li>
                             <li><Link to="timeline" title="Works" smooth={true} onClick={this.props.onHide}>Timeline</Link></li>
+                            <li><Link to="projects" title="Projects" smooth={true} onClick={this.props.onHide}>Projects</Link></li>
                             <li><Link to="mailto:#0" title="Contact me" smooth={true} onClick={this.props.onHide}>Contact me</Link></li>
                         </ul>
                     </nav>
@@ -33,11 +38,11 @@ class Header extends React.Component {
 }
 
 const Intro = React.forwardRef((props, ref) =>  (
-    <Parallax  strength={500}>
+    <Parallax  strength={800} bgImage={require('./images/intro.jpg')} bgImageStyle={{'object-fit': 'cover'}}>
         <section id="intro" ref={ref} className="s-hero target-section">
-        <Background className='parallax-intro'>
+        {/* <Background >
             <img  src={require('./images/intro.jpg')} alt="bg" />
-        </Background>
+        </Background> */}
         <div className="row hero-content">
             <div className="column large-full">
                 <h1>
@@ -97,12 +102,11 @@ function About(props) {
 
                     <p className='intro-para'>
                     <br />
-                    I'm Renzhong Lu, a Master's student at the University of Michigan, major in computer science engineering. 
-                    I love programming, on everything! I can do front-end, Android, full-stack, ML, and even Arduino and ROS. 
-                    My favorite is, of course, full-stack development. Algorithm and math are behind the process of app development, 
-                    which boost the efficiency of your app. So never stop practicing on Leetcode ;)<br /><br />
+                    I'm Renzhong Lu, a Master's student at the University of Michigan, major in computer science engineering.
+                    I love programming, on everything! I can do front-end, Android, full-stack, ML, and even Arduino and ROS.
+                    My favorite is, of course, full-stack development. <br /><br />
 
-                    I love photography, Kpop, and jogging. Want to have a debate on which Kpop group is the best? Shoot me an email.
+                    I love photography, Kpop, and jogging. Want to have a discussion on which Kpop group is the best? Shoot me an email.
 
                     </p>
 
@@ -112,6 +116,80 @@ function About(props) {
         </div>
         </section>
     );
+}
+
+class TimeLine extends React.Component {
+    render() {
+        return(
+            <section id='timeline' className='s-about target-section'>
+                <div className="s-about__section">
+
+                <div className="row">
+                    <div className="column large-6 medium-8 tab-full">
+                        <div className="section-intro">
+                            <h3 className="subhead">Timeline</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row block-large-1-2 block-900-full work-positions">
+
+                <div class="column">
+                    <div class="position">
+                        <div class="position__header">
+                            <h6>
+                                <span class="position__co">University of Michigan</span>
+                                <span class="position__pos">Graduate Student Instructor</span>
+                            </h6>
+                            <div class="position__timeframe">
+                                Sept 2019 - Present
+                            </div>
+                        </div>
+
+                        <p>
+                        I work.
+                        </p>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="position">
+                        <div class="position__header">
+                            <h6>
+                                <span class="position__co">University of Michigan</span>
+                                <span class="position__pos">Master of Science in Computer Science Engineering</span>
+                            </h6>
+                            <div class="position__timeframe">
+                                Sept 2019 - Present
+                            </div>
+                        </div>
+
+                        <p>
+                        I work.
+                        </p>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="position">
+                        <div class="position__header">
+                            <h6>
+                                <span class="position__co">Rokid Inc</span>
+                                <span class="position__pos">Research Intern</span>
+                            </h6>
+                            <div class="position__timeframe">
+                                May 2018 - Jul 2018
+                            </div>
+                        </div>
+
+                        <p>
+                        I work.
+                        </p>
+                    </div>
+                </div>
+                </div>
+                </div>
+            </section>
+        );
+    }
 }
 
 
@@ -183,6 +261,7 @@ class Index extends React.Component {
                 />
                 <Intro ref={this.introRef} />
                 <About />
+                <TimeLine />
             </div>
         );
     }
