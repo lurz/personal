@@ -93,11 +93,6 @@ function About(props) {
                         <h3 className="subhead">About Me</h3>
                     </div>
 
-                    {/* <div className="profile-pic" data-aos="fade-up">
-                        <img src="images/profile-pic.jpg" 
-                             srcSet="images/profile-pic.jpg 1x, images/profile-pic@2x.jpg 2x" alt="" />
-                    </div> */}
-
                     <h3 className='intro-para'>Profile</h3>
 
                     <p className='intro-para'>
@@ -118,76 +113,93 @@ function About(props) {
     );
 }
 
+function Position(props){
+    return(
+        <div className="column">
+            <div className="position">
+                <div className="position__header">
+                    <h6>
+                        <span className="position__co">{props.loc}</span>
+                        <span className="position__pos">{props.pos}</span>
+                    </h6>
+                    <div className="position__timeframe">
+                        {props.time}
+                    </div>
+                </div>
+
+                <p>
+                {props.intro}
+                </p>
+            </div>
+        </div>
+    );
+}
+
 class TimeLine extends React.Component {
+    renderPosition(position){
+        return(
+            <Position 
+                loc = {position.loc}
+                pos = {position.pos}
+                time = {position.time}
+                intro = {position.intro}
+            />
+        );
+    }
+
     render() {
+        const positionList = [];
+        positionList.push({'loc': 'University of Michigan', 'pos': 'Graduate Student Instructor', 'time':'Sept 2019 - Present', 'intro':'I work as the GSI of course EECS 441 - Mobile App Development for Entrepreneurs.'});
+        positionList.push({'loc': 'University of Michigan', 'pos': 'Master of Science', 'time':'Sept 2019 - Present', 'intro':'Major in computer science engineering.'});
+        positionList.push({'loc': 'Rokid Inc', 'pos': 'Research Intern', 'time':'May 2018 - Jul 2018', 'intro':'In charge of a project about indoor localization.'});
+        positionList.push({'loc': 'University of Michigan', 'pos': 'Bachelor of Science in Engineering', 'time':'Sept 2017 - May 2019', 'intro':'Major in computer science engineering.'});
+        positionList.push({'loc': 'Shanghai JiaoTong University', 'pos': 'Bachelor of Science in Engineering', 'time':'Sept 2015 - Aug 2019', 'intro':'Major in electrical and computer engineering.'});
+
+        const renderPos = [];
+        for(let i = 0; i < positionList.length; i++){
+            renderPos.push(
+                this.renderPosition(positionList[i])
+            )
+        }
+
         return(
             <section id='timeline' className='s-about target-section'>
                 <div className="s-about__section">
-
-                <div className="row">
-                    <div className="column large-6 medium-8 tab-full">
-                        <div className="section-intro">
-                            <h3 className="subhead">Timeline</h3>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row block-large-1-2 block-900-full work-positions">
-
-                <div class="column">
-                    <div class="position">
-                        <div class="position__header">
-                            <h6>
-                                <span class="position__co">University of Michigan</span>
-                                <span class="position__pos">Graduate Student Instructor</span>
-                            </h6>
-                            <div class="position__timeframe">
-                                Sept 2019 - Present
+                    <div className="row">
+                        <div className="column large-6 medium-8 tab-full">
+                            <div className="section-intro">
+                                <h3 className="subhead">Timeline</h3>
                             </div>
                         </div>
-
-                        <p>
-                        I work.
-                        </p>
                     </div>
-                </div>
-                <div class="column">
-                    <div class="position">
-                        <div class="position__header">
-                            <h6>
-                                <span class="position__co">University of Michigan</span>
-                                <span class="position__pos">Master of Science in Computer Science Engineering</span>
-                            </h6>
-                            <div class="position__timeframe">
-                                Sept 2019 - Present
-                            </div>
-                        </div>
 
-                        <p>
-                        I work.
-                        </p>
+                    <div className="row block-large-1-2 block-900-full work-positions">             
+                        {renderPos}
                     </div>
-                </div>
-                <div class="column">
-                    <div class="position">
-                        <div class="position__header">
-                            <h6>
-                                <span class="position__co">Rokid Inc</span>
-                                <span class="position__pos">Research Intern</span>
-                            </h6>
-                            <div class="position__timeframe">
-                                May 2018 - Jul 2018
-                            </div>
-                        </div>
-
-                        <p>
-                        I work.
-                        </p>
-                    </div>
-                </div>
-                </div>
                 </div>
             </section>
+        );
+    }
+}
+
+class Footer extends React.Component {
+    render(){
+        return(
+            <footer className="s-footer h-dark-bg">
+                <div className="row s-footer__bottom">
+                    <div className="column large-full ss-copyright">
+                        <span>© Copyright Renzhong Lu 2020</span>
+                        <span>Build with React</span>
+                        <span>Thanks Ethos for the template</span>
+                    </div> 
+
+                    <div className={"ss-go-top" + (this.props.backToTop ? ' link-is-visible' : '')}>
+                        <Link smooth={true} title="Back to Top" to="intro">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0l8 9h-6v15h-4v-15h-6z"/></svg>
+                        </Link>
+                    </div>
+                </div> 
+            </footer>
         );
     }
 }
@@ -201,6 +213,7 @@ class Index extends React.Component {
         this.state = {
             headerClass: false,
             toggleButton: false,
+            backToTop: false,
         };
     }
 
@@ -216,6 +229,16 @@ class Index extends React.Component {
              this.setState({
                  headerClass: false,
              });
+         }
+
+         if (currentLoc > 800) {
+             this.setState({
+                 backToTop: true,
+             });
+         } else {
+            this.setState({
+                backToTop: false,
+            });
          }
     }
 
@@ -262,6 +285,9 @@ class Index extends React.Component {
                 <Intro ref={this.introRef} />
                 <About />
                 <TimeLine />
+                <Footer 
+                    backToTop={this.state.backToTop}
+                />
             </div>
         );
     }
