@@ -15,9 +15,9 @@ class Header extends React.Component {
         return(
             <header className={"s-header" + (this.props.addclass ? ' sticky offset scrolling' : '')}>
                 <div class="header-logo">
-                    <a href="../public/index.html">
+                    <Link to="intro" smooth={true}>
                         <img src={require("./images/logo.png")} alt="Homepage" />
-                    </a>
+                    </Link>
                 </div>
                 <div className="header-content">
                     <nav className="header-nav-wrap">
@@ -149,9 +149,9 @@ class TimeLine extends React.Component {
 
     render() {
         const positionList = [];
-        positionList.push({'loc': 'University of Michigan', 'pos': 'Graduate Student Instructor', 'time':'Sept 2019 - Present', 'intro':'I work as the GSI of course EECS 441 - Mobile App Development for Entrepreneurs.'});
+        positionList.push({'loc': 'University of Michigan', 'pos': 'Graduate Student Instructor', 'time':'Sept 2019 - Present', 'intro':'Work as the GSI of the course EECS 441 - Mobile App Development for Entrepreneurs. Lead and provide instructions on student discussions and projects.'});
         positionList.push({'loc': 'University of Michigan', 'pos': 'Master of Science', 'time':'Sept 2019 - Present', 'intro':'Major in computer science engineering.'});
-        positionList.push({'loc': 'Rokid Inc', 'pos': 'Research Intern', 'time':'May 2018 - Jul 2018', 'intro':'In charge of a project about indoor localization.'});
+        positionList.push({'loc': 'Rokid Inc', 'pos': 'Research Intern', 'time':'May 2018 - Jul 2018', 'intro':'In charge of a project about indoor localization. Use machine learning method to predict the location of the users based on Wi-Fi signal.'});
         positionList.push({'loc': 'University of Michigan', 'pos': 'Bachelor of Science in Engineering', 'time':'Sept 2017 - May 2019', 'intro':'Major in computer science engineering.'});
         positionList.push({'loc': 'Shanghai JiaoTong University', 'pos': 'Bachelor of Science in Engineering', 'time':'Sept 2015 - Aug 2019', 'intro':'Major in electrical and computer engineering.'});
 
@@ -188,7 +188,7 @@ class Footer extends React.Component {
             <footer className="s-footer h-dark-bg">
                 <div className="row s-footer__bottom">
                     <div className="column large-full ss-copyright">
-                        <span>© Copyright Renzhong Lu 2020</span>
+                        <span>© Copyright 2020 Renzhong</span>
                         <span>Build with React</span>
                         <span>Thanks Ethos for the template</span>
                     </div> 
